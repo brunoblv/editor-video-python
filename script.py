@@ -37,6 +37,8 @@ for musica in musicas:
 
     # Carrega o vídeo e define o corte (16s de duração)
     clip = VideoFileClip(musica["arquivo"]).subclip(inicio, inicio + 16)
+    
+    intro = VideoFileClip("videos/intro2025.mp4")
 
     # Define dimensões do vídeo
     largura_video, altura_video = clip.size
@@ -93,7 +95,8 @@ for musica in musicas:
     clips.append(video_com_texto)
 
 # Concatena os clipes
-video_final = concatenate_videoclips(clips, method="compose")
+video_final = concatenate_videoclips([intro] + clips + [intro], method="compose")
+
 video_final.write_videofile("output/parada_musical.mp4", fps=24)
 
 print("Vídeo final gerado com sucesso!")
